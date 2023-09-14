@@ -1,0 +1,59 @@
+# bus_booking.py
+
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
+
+# Dummy database to store bus data
+bus_data = [
+    {
+        'id': 1,
+        'name': 'Bus A',
+        'route': 'Route 1',
+        'seats': 50,
+        'available_seats': 50,
+    },
+    {
+        'id': 2,
+        'name': 'Bus B',
+        'route': 'Route 2',
+        'seats': 40,
+        'available_seats': 40,
+    },
+]
+
+# Dummy bookings database
+bookings = []
+
+@app.route('/buses', methods=['GET'])
+def get_buses():
+    return jsonify(bus_data)
+
+@app.route('/bookings', methods=['GET'])
+def get_bookings():
+    return jsonify(bookings)
+
+@app.route('/book', methods=['POST'])
+def book_seat():
+    data = request.get_json()
+    bus_id = data.get('bus_id')
+    if not bus_id:
+        return jsonify({'error': 'Bus ID is required'}), 400
+    
+    bus = next((b for b in bus_data if b['id'] == bus_id), None)
+    if not bus:
+        return jsonify({'error': 'Bus not found'}), 404
+    
+    if bus['available_seats'] == 0:
+        return jsonify({'error': 'No available seats'}), 400
+    
+    booking = {
+        'bus_id': bus_id,
+        'passenger_name': data.get('passenger_name'),
+    }
+    bookings.append(booking)
+    bus['available_seats'] -= 1
+    return jsonify({'message': 'Booking successful'})
+
+if __name__ == '__main__':
+    app.run(debug=True)
