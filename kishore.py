@@ -4,5 +4,5 @@
 name = input("What is your name? ")
 
 # Greet the user
-print(f"Hello, {kishore}! Welcome to the world of Python programming.")
+print(f"Hello, {kishore krazy}! Welcome to the world of Python programming.")
 
