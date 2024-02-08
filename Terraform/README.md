@@ -19,10 +19,10 @@ Once you have the AWS access key and secret key, update the provider "aws" block
 + Open a terminal and navigate to the project directory.
 + Run the following command to initialize Terraform:
 -terraform init
-Run the following command to preview the changes Terraform will make:
++ Run the following command to preview the changes Terraform will make:
 -terraform plan
-If the plan looks good, run the following command to apply the changes and create the EC2 instance:
++ If the plan looks good, run the following command to apply the changes and create the EC2 instance:
 -terraform apply
-Confirm the changes by typing yes when prompted.
-Terraform will provision the AWS resources based on the defined configuration.
-After following the instructions, check your AWS account to ensure that the instance has been successfully launched.
++ Confirm the changes by typing yes when prompted.
++ Terraform will provision the AWS resources based on the defined configuration.
+
