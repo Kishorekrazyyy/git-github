@@ -16,8 +16,8 @@ Once you have the AWS access key and secret key, update the provider "aws" block
 # Usage
 ## To create the AWS EC2 instance, follow these steps:
 
-Open a terminal and navigate to the project directory.
-Run the following command to initialize Terraform:
++ Open a terminal and navigate to the project directory.
++ Run the following command to initialize Terraform:
 -terraform init
 Run the following command to preview the changes Terraform will make:
 -terraform plan
