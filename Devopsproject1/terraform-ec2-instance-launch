@@ -1,0 +1,43 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+}
+
+# Configure the AWS Provider
+provider "aws" {
+  region = "eu-north-1"
+  access_key = "AKIAZQXWJJQLQA765ZXC"
+  secret_key = "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"
+}
+
+resource "tls_private_key" "rsa_4096" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+variable "key_name" {
+  description = "Name of the SSH key pair"
+}
+
+// Create Key Pair for Connecting EC2 via SSH
+resource "aws_key_pair" "key_pair" {
+  key_name   = var.key_name
+  public_key = tls_private_key.rsa_4096.public_key_openssh
+}
+
+resource "local_file" "private_key" {
+  content  = tls_private_key.rsa_4096.private_key_pem
+  filename = var.key_name
+}
+
+resource "aws_instance" "public_instance" {
+  ami                    = "ami-0014ce3e52359afbd"
+  instance_type          = "t3.micro"
+  key_name               = aws_key_pair.key_pair.key_name
+
+  tags = {
+    Name = "public_instance"
