@@ -1,0 +1,90 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+}
+
+# Configure the AWS Provider
+provider "aws" {
+  region = "eu-north-1"
+  access_key = "AKIAZQXWJJQLTRSQ7IHC"
+  secret_key = "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"
+}
+
+resource "tls_private_key" "rsa_4096" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+variable "key_name" {
+  description = "Name of the SSH key pair"
+}
+
+// Create Key Pair for Connecting EC2 via SSH
+resource "aws_key_pair" "key_pair" {
+  key_name   = var.key_name
+  public_key = tls_private_key.rsa_4096.public_key_openssh
+}
+
+resource "local_file" "private_key" {
+  content  = tls_private_key.rsa_4096.private_key_pem
+  filename = var.key_name
+}
+
+resource "aws_instance" "public_instance" {
+  ami                    = "ami-087c4d241dd19276d"
+  instance_type          = "t3.micro"
+  key_name               = aws_key_pair.key_pair.key_name
+
+  tags = {
+    Name = "public_instance"
+   }
+}
+
+resource "aws_instance" "public" { 
+  ami                    = "ami-0014ce3e52359afbd"
+  instance_type          = "t3.micro"
+  key_name               = aws_key_pair.key_pair.key_name
+
+  tags = {
+    Name = "public_instance"
+  }
+}
+
+resource "aws_elb" "public_lb" {
+  name               = "public-lb"
+  availability_zones = ["eu-north-1a", "eu-north-1b"]
+
+  listener {
+    instance_port     = 80
+    instance_protocol = "HTTP"
+    lb_port           = 80
+    lb_protocol       = "HTTP"
+  }
+}
+
+resource "aws_lb_target_group" "public_target_group" {
+  name     = "public-target-group"
+  port     = 80
+  protocol = "HTTP"
+  vpc_id   = "vpc-0cb45f9f353940cd1"
+
+  health_check {
+    protocol               = "HTTP"
+    path                   = "/"
+    interval               = 30
+    timeout                = 5
+    healthy_threshold      = 2
+    unhealthy_threshold    = 2
+  }
+}
+
+resource "aws_lb_target_group_attachment" "public_attachment" {
+  count          = 2
+  target_group_arn = aws_lb_target_group.public_target_group.arn
+  target_id       = aws_instance.public.*.id[count.index]
+  port            = 80
+}
