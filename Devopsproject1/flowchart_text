@@ -1,0 +1,36 @@
++-----------------------+         +------------------------+          +------------------------+
+|  Define Project       |         |  Design Infrastructure |          |   Write Terraform      |
+|  Requirements         |         |  Architecture          |          |   Configuration Files  |
++-----------^-----------+         +------------^-----------+          +------------^-----------+
+            |                                  |                                   |
+            |                                  |                                   |
+            v                                  v                                   v
++-----------+-----------+          +-----------+-----------+          +------------+----------+
+|  Initialize Terraform |          |  Plan Infrastructure|          |   Apply Changes to AWS  |
+|                       |          |  Changes            |          |   Environment           |
++-----------^-----------+          +-----------^-----------+          +------------^----------+
+            |                                  |                                   |
+            |                                  |                                   |
+            v                                  v                                   v
++-----------+------------+         +-----------+------------+         +-------------+----------+
+|  Provision EC2         |         |  Configure Apache   |         |  Deploy Sample Bus      |
+|  Instances, RDS         |         |  Web Server on EC2   |         |  Booking Application    |
+|  Database, and ELB     |         |  Instances            |         |                         |
++-----------^------------+         +-----------^------------+         +-------------^----------+
+            |                                  |                                   | 
+            |                                  |                                   |
+            v                                  v                                   v
++-----------+------------+         +-----------+------------+         +-------------+----------+
+|  Store Booking Data    |         |  Verify Application |         |  Commit and Push        |
+|  in RDS Database       |         |  Functionality       |         |  Terraform Configuration|
++-------------------------+         +----------------------+         +-------------^----------+
+                                                                                      |
+                                                                                      |
+                                                                                      v
+                                                                                +-----+-------+
+                                                                                |  Share      |
+                                                                                |  Project    |
+                                                                                |  Documentation |
+                                                                                |  and Source   |
+                                                                                |  Code         |
+                                                                                +--------------+
