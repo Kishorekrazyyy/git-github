@@ -1,1 +1,50 @@
 
+Title: Kubernetes Deployment Project: Sample 2048 Game with EKS, Ingress Controller, Prometheus, and Grafana
+
+Introduction:
+Join me on a journey through a comprehensive Kubernetes deployment project where I showcase the setup of a sample 2048 game application leveraging Amazon EKS (Elastic Kubernetes Service). This project integrates various Kubernetes components such as Ingress Controller, Prometheus for monitoring, and Grafana for visualization.
+
+Project Content:
+
+Overview:
+
+Brief introduction to the project goals and objectives.
+Explanation of the components involved: Amazon EKS, Ingress Controller, Prometheus, and Grafana.
+Setting up Amazon EKS:
+
+Step-by-step guide to provisioning an EKS cluster.
+Configuring authentication and access for cluster management.
+Deploying Sample 2048 Game:
+
+Containerizing the sample 2048 game application.
+Creating Kubernetes deployment and service manifests.
+Testing the application deployment within the EKS cluster.
+Implementing Ingress Controller:
+
+Introduction to Ingress resources in Kubernetes.
+Deployment of an Ingress Controller for managing external access to services.
+Configuring routing rules for the sample 2048 game using Ingress.
+Monitoring Kubernetes Cluster with Prometheus:
+
+Setting up Prometheus for monitoring Kubernetes cluster metrics.
+Configuring Prometheus to scrape metrics from Kubernetes components.
+Defining custom metrics and alerts for monitoring the health of the cluster.
+Visualizing Metrics with Grafana:
+
+Deploying Grafana for visualization of Prometheus metrics.
+Configuring dashboards to display key performance indicators of the Kubernetes cluster.
+Customizing Grafana dashboards for specific monitoring requirements.
+Load Balancer Configuration:
+
+Setting up a load balancer for distributing traffic across multiple pods.
+Configuring load balancing policies and health checks.
+Conclusion:
+
+Summary of the project achievements and outcomes.
+Key takeaways and lessons learned from the deployment process.
+Future considerations and enhancements for the Kubernetes deployment.
+By following along with this project content, you'll gain practical experience in deploying and managing applications on Kubernetes using Amazon EKS, implementing essential components like Ingress Controller for external access, and setting up robust monitoring with Prometheus and Grafana. Let's dive into the world of cloud-native application deployment together!
+
+
+
+
